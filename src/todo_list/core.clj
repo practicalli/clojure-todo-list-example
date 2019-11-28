@@ -1,5 +1,6 @@
 (ns todo-list.core
-  (:require [ring.adapter.jetty :as webserver]))
+  (:require [ring.adapter.jetty :as webserver]
+            [ring.middleware.reload :refer [wrap-reload]]))
 
 
 (defn welcome
@@ -18,9 +19,20 @@
 
 
 (defn -main
-  "A very simple web server using Ring & Jetty"
+  "A very simple web server using Ring & Jetty
+  Production mode operation, no reloading."
   [port-number]
   (webserver/run-jetty
     welcome
+    {:port (Integer. port-number)}))
+
+
+(defn -dev-main
+  "A very simple web server using Ring & Jetty,
+  called via the development profile of Leiningen
+  which reloads code changes using ring middleware wrap-reload"
+  [port-number]
+  (webserver/run-jetty
+    (wrap-reload #'welcome)
     {:port  (Integer. port-number)
      :join? false}))
