@@ -11,7 +11,8 @@
     {:status  200
      :headers {}
      :body    "<h1>Hello, Clojure World</h1>
-               <p>Welcome to your first Clojure app.</p>"}
+               <p>Welcome to your first Clojure app.</p>
+               <p>I now reload changes automatically</p> "}
     {:status  404
      :headers {}
      :body    "<h1>This is not the page you are looking for</h1>
